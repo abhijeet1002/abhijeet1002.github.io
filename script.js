@@ -1,4 +1,30 @@
-// 1. Mobile Navigation Menu Toggle
+// 1. Mobile & Touch Dropdown Open Handler
+document.querySelectorAll('.dropdown').forEach(dropdown => {
+    const btn = dropdown.querySelector('.dropdown-btn');
+    
+    if (btn) {
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            // Toggle dropdown for touch/click
+            dropdown.classList.toggle('active');
+        });
+    }
+});
+
+// Close dropdown if user clicks anywhere outside
+document.addEventListener('click', () => {
+    document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
+});
+
+// 2. Dynamic Date Auto-Update for IT Advisory
+const currentDateElem = document.getElementById('current-date');
+if (currentDateElem) {
+    const today = new Date();
+    const options = { year: 'numeric', month: 'short', day: 'numeric' };
+    currentDateElem.textContent = today.toLocaleDateString('en-US', options);
+}
+
+// 3. Mobile Navigation Hamburger Toggle
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.querySelector('.nav-links');
 
@@ -8,14 +34,13 @@ if (mobileMenu) {
     });
 }
 
-// Close mobile menu on clicking links
-document.querySelectorAll('.nav-links a').forEach(link => {
+document.querySelectorAll('.nav-links a:not(.dropdown-btn)').forEach(link => {
     link.addEventListener('click', () => {
         navLinks.classList.remove('active');
     });
 });
 
-// 2. Smooth Scroll
+// 4. Smooth Scrolling
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -26,7 +51,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// 3. Web3Forms Handling & Security Sanitization
+// 5. Web3Forms Handling
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -36,10 +61,9 @@ if (contactForm) {
         const form = e.target;
         const submitButton = form.querySelector('button[type="submit"]');
 
-        // Simple Anti-Spam Check (Honeypot field)
         const botCheck = form.querySelector('input[name="botcheck"]');
         if (botCheck && botCheck.checked) {
-            return; // Spam bot trapped
+            return;
         }
 
         const data = new FormData(form);
