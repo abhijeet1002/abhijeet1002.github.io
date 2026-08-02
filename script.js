@@ -63,7 +63,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 
-// 5. Contact Form Submission via Web3Forms (with hCaptcha & Anti-Spam support)
+// 5. Contact Form Submission via Web3Forms (Smooth & Secure)
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -95,15 +95,10 @@ if (contactForm) {
             const result = await response.json();
 
             if (response.status === 200) {
-                alert('Thank you, Abhijeet! Your message has been sent successfully.');
+                alert('Thank you! Your message has been sent successfully.');
                 form.reset();
-
-                // hCaptcha Widget Reset (Agar page par captcha enabled ho)
-                if (typeof hcaptcha !== 'undefined') {
-                    hcaptcha.reset();
-                }
             } else {
-                alert(result.message || 'Oops! Something went wrong. Please check your form fields or hCaptcha.');
+                alert(result.message || 'Oops! Something went wrong. Please check your Web3Forms Access Key.');
             }
         } catch (error) {
             alert('Network error. Please check your internet connection and try again.');
