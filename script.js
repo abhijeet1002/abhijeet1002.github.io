@@ -1,22 +1,21 @@
-// 1. Mobile & Touch Dropdown Open Handler
+// 1. Dropdown Toggle for Touch & Click Events
 document.querySelectorAll('.dropdown').forEach(dropdown => {
     const btn = dropdown.querySelector('.dropdown-btn');
     
     if (btn) {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
-            // Toggle dropdown for touch/click
             dropdown.classList.toggle('active');
         });
     }
 });
 
-// Close dropdown if user clicks anywhere outside
+// Close Dropdown when clicking outside
 document.addEventListener('click', () => {
     document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
 });
 
-// 2. Dynamic Date Auto-Update for IT Advisory
+// 2. Dynamic Date Auto-Update for IT Advisory Section
 const currentDateElem = document.getElementById('current-date');
 if (currentDateElem) {
     const today = new Date();
@@ -24,7 +23,7 @@ if (currentDateElem) {
     currentDateElem.textContent = today.toLocaleDateString('en-US', options);
 }
 
-// 3. Mobile Navigation Hamburger Toggle
+// 3. Mobile Navigation Hamburger Menu Toggle
 const mobileMenu = document.getElementById('mobile-menu');
 const navLinks = document.querySelector('.nav-links');
 
@@ -40,7 +39,7 @@ document.querySelectorAll('.nav-links a:not(.dropdown-btn)').forEach(link => {
     });
 });
 
-// 4. Smooth Scrolling
+// 4. Smooth Scrolling to Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -51,7 +50,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// 5. Web3Forms Handling
+// 5. Contact Form Submission via Web3Forms
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -82,7 +81,7 @@ if (contactForm) {
             const result = await response.json();
 
             if (response.status === 200) {
-                alert('Thank you, Abhijeet! Your message has been sent successfully.');
+                alert('Thank you! Your message has been sent successfully.');
                 form.reset();
             } else {
                 alert(result.message || 'Oops! Something went wrong.');
