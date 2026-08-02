@@ -63,7 +63,7 @@ header {
     cursor: pointer;
 }
 
-/* --- Dropdown Smooth Animation Rules --- */
+/* --- Dropdown Smooth Animations --- */
 .dropdown {
     position: relative;
     display: inline-block;
@@ -89,7 +89,6 @@ header {
     transition: transform 0.3s ease;
 }
 
-/* Smooth List Box */
 .dropdown-menu {
     position: absolute;
     top: 120%;
@@ -124,7 +123,6 @@ header {
     color: #38bdf8;
 }
 
-/* Hover or Active State */
 .dropdown:hover .dropdown-menu,
 .dropdown.active .dropdown-menu {
     opacity: 1;
@@ -137,7 +135,7 @@ header {
     transform: rotate(180deg);
 }
 
-/* Hero Section Custom Dropdown Styling */
+/* Hero Section Custom Dropdown */
 .hero-dropdown .dropdown-btn {
     background: #38bdf8;
     color: #0f172a;
