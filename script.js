@@ -1,27 +1,35 @@
-// 1. Dropdown Toggle for Touch & Click Events
+// 1. Dropdown Toggle for Touch & Click Events (Smooth Dropdown List)
 document.querySelectorAll('.dropdown').forEach(dropdown => {
     const btn = dropdown.querySelector('.dropdown-btn');
     
     if (btn) {
         btn.addEventListener('click', (e) => {
             e.stopPropagation();
+            
+            // Other open dropdowns ko close karne ke liye
+            document.querySelectorAll('.dropdown').forEach(d => {
+                if (d !== dropdown) d.classList.remove('active');
+            });
+
             dropdown.classList.toggle('active');
         });
     }
 });
 
-// Close Dropdown when clicking outside
+// Outside click par sabhi dropdowns ko close karein
 document.addEventListener('click', () => {
     document.querySelectorAll('.dropdown').forEach(d => d.classList.remove('active'));
 });
 
-// 2. Dynamic Date Auto-Update for IT Advisory Section
+
+// 2. Dynamic Date Auto-Update for Daily IT Advisory Section
 const currentDateElem = document.getElementById('current-date');
 if (currentDateElem) {
     const today = new Date();
     const options = { year: 'numeric', month: 'short', day: 'numeric' };
     currentDateElem.textContent = today.toLocaleDateString('en-US', options);
 }
+
 
 // 3. Mobile Navigation Hamburger Menu Toggle
 const mobileMenu = document.getElementById('mobile-menu');
@@ -33,11 +41,15 @@ if (mobileMenu) {
     });
 }
 
+// Mobile menu item click karne par menu auto-close ho jaye
 document.querySelectorAll('.nav-links a:not(.dropdown-btn)').forEach(link => {
     link.addEventListener('click', () => {
-        navLinks.classList.remove('active');
+        if (navLinks) {
+            navLinks.classList.remove('active');
+        }
     });
 });
+
 
 // 4. Smooth Scrolling to Anchor Links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -50,7 +62,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// 5. Contact Form Submission via Web3Forms
+
+// 5. Contact Form Submission via Web3Forms (with hCaptcha & Anti-Spam support)
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
@@ -60,6 +73,7 @@ if (contactForm) {
         const form = e.target;
         const submitButton = form.querySelector('button[type="submit"]');
 
+        // Honeypot Bot Check
         const botCheck = form.querySelector('input[name="botcheck"]');
         if (botCheck && botCheck.checked) {
             return;
@@ -81,13 +95,18 @@ if (contactForm) {
             const result = await response.json();
 
             if (response.status === 200) {
-                alert('Thank you! Your message has been sent successfully.');
+                alert('Thank you, Abhijeet! Your message has been sent successfully.');
                 form.reset();
+
+                // hCaptcha Widget Reset (Agar page par captcha enabled ho)
+                if (typeof hcaptcha !== 'undefined') {
+                    hcaptcha.reset();
+                }
             } else {
-                alert(result.message || 'Oops! Something went wrong.');
+                alert(result.message || 'Oops! Something went wrong. Please check your form fields or hCaptcha.');
             }
         } catch (error) {
-            alert('Network error. Please try again later.');
+            alert('Network error. Please check your internet connection and try again.');
         } finally {
             submitButton.textContent = originalBtnText;
             submitButton.disabled = false;
