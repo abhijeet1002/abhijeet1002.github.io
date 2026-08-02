@@ -1,30 +1,49 @@
-// 1. Smooth Scrolling for Navigation Links
+// 1. Mobile Navigation Menu Toggle
+const mobileMenu = document.getElementById('mobile-menu');
+const navLinks = document.querySelector('.nav-links');
+
+if (mobileMenu) {
+    mobileMenu.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+    });
+}
+
+// Close mobile menu on clicking links
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', () => {
+        navLinks.classList.remove('active');
+    });
+});
+
+// 2. Smooth Scroll
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
-        const targetId = this.getAttribute('href');
-        const targetElement = document.querySelector(targetId);
-        
+        const targetElement = document.querySelector(this.getAttribute('href'));
         if (targetElement) {
-            targetElement.scrollIntoView({
-                behavior: 'smooth'
-            });
+            targetElement.scrollIntoView({ behavior: 'smooth' });
         }
     });
 });
 
-// 2. AJAX Formspree Handling (Without Page Reload)
+// 3. Web3Forms Handling & Security Sanitization
 const contactForm = document.getElementById('contactForm');
 
 if (contactForm) {
     contactForm.addEventListener('submit', async function(e) {
-        e.preventDefault(); // Page reload hone se rokta hai
+        e.preventDefault();
 
         const form = e.target;
-        const data = new FormData(form);
         const submitButton = form.querySelector('button[type="submit"]');
 
-        // Button text update for feedback
+        // Simple Anti-Spam Check (Honeypot field)
+        const botCheck = form.querySelector('input[name="botcheck"]');
+        if (botCheck && botCheck.checked) {
+            return; // Spam bot trapped
+        }
+
+        const data = new FormData(form);
+
         const originalBtnText = submitButton.textContent;
         submitButton.textContent = 'Sending...';
         submitButton.disabled = true;
@@ -33,19 +52,19 @@ if (contactForm) {
             const response = await fetch(form.action, {
                 method: form.method,
                 body: data,
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
 
-            if (response.ok) {
+            const result = await response.json();
+
+            if (response.status === 200) {
                 alert('Thank you, Abhijeet! Your message has been sent successfully.');
-                form.reset(); // Form fields ko blank kar dega
+                form.reset();
             } else {
-                alert('Oops! There was a problem submitting your form. Please check your Formspree URL.');
+                alert(result.message || 'Oops! Something went wrong.');
             }
         } catch (error) {
-            alert('Oops! Network error. Please try again later.');
+            alert('Network error. Please try again later.');
         } finally {
             submitButton.textContent = originalBtnText;
             submitButton.disabled = false;
