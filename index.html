@@ -45,7 +45,8 @@
         <div class="hero-container">
             <div class="profile-img-box">
                 <div class="img-circle">
-                    <img src="profile.png" alt="Abhijeet Bala" onerror="this.onerror=null; this.parentElement.innerHTML='<div class=\"avatar-fallback\">AB</div>';">
+                    <img src="profile.png" alt="Abhijeet Bala" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                    <div class="avatar-fallback" style="display:none;">AB</div>
                 </div>
             </div>
             <div class="hero-content">
@@ -313,7 +314,6 @@
             
             <div class="personal-details-grid">
                 <div><i class="fas fa-user"></i> <strong>Father's Name:</strong> Mr. Gyanendra Bala</div>
-                <div><i class="fas fa-birthday-cake"></i> <strong>Date of Birth:</strong> February 10, 1987</div>
                 <div><i class="fas fa-language"></i> <strong>Languages Known:</strong> English, Hindi, and Bangla</div>
                 <div class="full-width-item"><i class="fas fa-home"></i> <strong>Permanent Address:</strong> House No. 724, Sanjay Nagar, Ward No. 11, Rudrapur, Udham Singh Nagar, Uttarakhand - 263153, India</div>
             </div>
@@ -348,13 +348,6 @@
     <section id="contact" class="section">
         <h2 class="section-title">Get In Touch</h2>
         <div class="contact-box">
-            
-            <div class="info-grid contact-info-grid">
-                <div class="info-item"><i class="fas fa-map-marker-alt"></i> <span><strong>Address:</strong> Sanjay Nagar, Rudrapur, (U.S.N.), Uttarakhand - 263153</span></div>
-                <div class="info-item"><i class="fas fa-phone"></i> <span><strong>Phone:</strong> +91-85 85 96 85 85</span></div>
-                <div class="info-item"><i class="fas fa-language"></i> <span><strong>Languages:</strong> English, Hindi, and Bangla</span></div>
-            </div>
-
             <form action="https://api.web3forms.com/submit" method="POST" id="contactForm" autocomplete="off">
                 <input type="hidden" name="access_key" value="1e3adb26-65b7-4c1d-a5f9-43e08674b49a">
                 <input type="hidden" name="subject" value="New Portfolio Message from AbhijeetBala.com">
