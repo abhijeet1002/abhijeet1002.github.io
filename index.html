@@ -1,0 +1,632 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Abhijeet Bala | Senior IT Engineer Resume</title>
+<style>
+*{box-sizing:border-box}
+:root{
+ --bg:#050505;--panel:#0d0d0f;--panel2:#111114;--text:#fff;
+ --muted:#9a9aa2;--line:#252529;--red:#ff1744;--red2:#a90025;
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,Helvetica,sans-serif;transition:.35s}
+body.light{--bg:#f4f5f7;--panel:#fff;--panel2:#fff;--text:#171717;--muted:#65656c;--line:#dedee3;--red:#e60032;--red2:#a80024}
+a{text-decoration:none;color:inherit}
+
+/* TOPBAR & NAVIGATION */
+.topbar{position:fixed;z-index:100;top:0;left:0;right:0;height:70px;padding:0 4vw;display:flex;align-items:center;justify-content:space-between;background:rgba(5,5,5,0.85);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+body.light .topbar{background:rgba(244,245,247,0.85)}
+.brand{font-size:22px;font-weight:900;letter-spacing:-1px}.brand span{color:var(--red)}
+nav{display:flex;gap:15px;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);overflow-x:auto;padding:10px 0}
+nav a{white-space:nowrap;transition:.3s}
+nav a:hover{color:var(--red)}
+.theme{border:1px solid var(--line);background:var(--panel);color:var(--text);width:36px;height:36px;border-radius:50%;font-size:16px;cursor:pointer;flex-shrink:0}
+
+/* HERO SECTION */
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:100px 4vw 40px}
+.ambient{position:absolute;border-radius:50%;filter:blur(100px);background:var(--red);opacity:.15;pointer-events:none}
+.a1{width:400px;height:400px;left:-150px;top:15%}.a2{width:350px;height:350px;right:-100px;bottom:5%}
+
+.hero-card{position:relative;width:min(1100px,100%);min-height:500px;border:1px solid var(--line);border-radius:24px;background:linear-gradient(135deg,#0e0e10,#080808);box-shadow:0 30px 100px #000;display:flex;align-items:center;justify-content:space-between;padding:60px 7%;overflow:hidden}
+body.light .hero-card{background:#fff;box-shadow:0 25px 80px #0001}
+.hero-card:before{content:"";position:absolute;width:300px;height:300px;border-radius:50%;background:var(--red);filter:blur(100px);opacity:.12;right:10%;top:15%}
+.hero-left{position:relative;z-index:2;max-width:550px}.eyebrow{font-size:10px;letter-spacing:3px;color:var(--red);font-weight:800}
+h1{font-size:clamp(36px,6vw,76px);line-height:.9;letter-spacing:-3px;margin:15px 0}.hero h1 span,.contact h2 span{color:var(--red)}
+.hero-left p{color:var(--muted);font-size:13px;line-height:1.7}
+.actions{display:flex;gap:12px;margin-top:25px;flex-wrap:wrap}
+.primary,.secondary{padding:14px 22px;border-radius:8px;font-size:11px;font-weight:bold;display:inline-flex;align-items:center;justify-content:center;text-align:center}
+.primary{background:var(--red);color:#fff;box-shadow:0 0 25px #ff174444;border:1px solid var(--red)}.secondary{border:1px solid var(--line);background:var(--panel)}
+
+.hero-orb{position:relative;width:240px;height:240px;display:grid;place-items:center;z-index:2;flex-shrink:0}
+.orb-core{width:130px;height:130px;border-radius:50%;display:grid;place-items:center;background:radial-gradient(circle,#ff385c,#92001e 65%,#210006);font-size:36px;font-weight:900;color:#fff;box-shadow:0 0 30px var(--red)}
+.orb-ring{position:absolute;border:1px solid var(--red);border-radius:50%;box-shadow:0 0 12px #ff174466}.r1{width:190px;height:190px;transform:rotate(25deg);border-left-color:transparent;animation:spin 7s linear infinite}.r2{width:240px;height:130px;transform:rotate(-25deg);border-right-color:transparent;animation:spin2 5s linear infinite}
+
+.section{padding:90px 4vw;max-width:1250px;margin:auto}
+.section-title{display:flex;align-items:center;gap:15px;margin-bottom:45px}
+.section-title span{color:var(--red);font-size:11px;letter-spacing:2px;font-weight:bold}
+.section-title h2{font-size:clamp(26px,4vw,38px);margin:0;letter-spacing:-1.5px}
+
+.profile-grid{display:grid;grid-template-columns:1.4fr 1fr;gap:40px}
+.lead{font-size:18px;line-height:1.6;font-weight:bold}
+.summary-list{margin-top:20px;padding-left:18px;color:var(--muted);font-size:13px;line-height:1.8}
+
+.info-card{border:1px solid var(--line);border-radius:15px;padding:25px;background:var(--panel)}
+.info-card div{padding:12px 0;border-bottom:1px solid var(--line)}
+.info-card div:last-child{border:0}
+.info-card small{display:block;color:var(--red);font-size:9px;letter-spacing:2px;margin-bottom:4px;font-weight:bold}
+.info-card b, .info-card a{font-size:13px;word-break:break-all}
+
+/* FLIP CARD STYLES */
+.flip-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:25px}
+.flip-card{background-color:transparent;perspective:1000px;min-height:430px;cursor:pointer}
+.flip-card-inner{position:relative;width:100%;height:100%;transition:transform 0.8s cubic-bezier(0.175,0.885,0.32,1.275);transform-style:preserve-3d;border-radius:18px}
+.flip-card:hover .flip-card-inner, .flip-card.flipped .flip-card-inner{transform:rotateY(180deg)}
+.flip-card-front, .flip-card-back{position:absolute;width:100%;height:100%;-webkit-backface-visibility:hidden;backface-visibility:hidden;border-radius:18px;border:1px solid var(--line);padding:28px;display:flex;flex-direction:column;justify-content:space-between;background:var(--panel)}
+.flip-card-front{z-index:2}
+.flip-card-back{transform:rotateY(180deg);overflow-y:auto;background:linear-gradient(145deg,var(--panel2),#08080a);border-color:var(--red)}
+
+.flip-card .date{font-size:10px;color:var(--red);letter-spacing:1.5px;font-weight:bold;margin-bottom:8px}
+.flip-card h3{font-size:19px;margin:0 0 4px;line-height:1.2}
+.flip-card h4{color:var(--muted);font-size:12px;margin:0 0 12px;font-weight:normal}
+.flip-card ul{margin:0;padding-left:16px;color:var(--muted);font-size:11.5px;line-height:1.6}
+.flip-card ul li{margin-bottom:6px}
+
+.flip-badge{align-self:flex-start;background:rgba(255,23,68,0.1);border:1px solid var(--red);color:var(--red);padding:4px 10px;border-radius:20px;font-size:9px;font-weight:bold;letter-spacing:1px;text-transform:uppercase;display:inline-flex;align-items:center;gap:4px}
+
+/* HOVERABLE SKILLS SECTION */
+.dark-section{max-width:none;background:#080809}
+.skills-grid{max-width:1150px;margin:auto;display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:20px}
+.skill-card{background:var(--panel);border:1px solid var(--line);padding:30px;border-radius:16px;transition:all .35s cubic-bezier(0.175, 0.885, 0.32, 1.275)}
+.skill-card:hover{border-color:var(--red);transform:translateY(-8px) scale(1.02);box-shadow:0 15px 35px rgba(255,23,68,0.15)}
+.skill-card b{color:var(--red);font-size:10px;letter-spacing:2px}
+.skill-card h3{font-size:18px;margin:12px 0 8px}
+.skill-card p{color:var(--muted);font-size:12px;line-height:1.6;margin:0}
+
+/* TECHNICAL QUALIFICATIONS FLIP GRID */
+.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px}
+.tech-flip-card{min-height:220px}
+
+/* GET IN TOUCH SECTION ENHANCEMENTS */
+.contact-section{padding:90px 4vw;max-width:1250px;margin:auto}
+.contact-grid{display:grid;grid-template-columns:1fr 1.1fr;gap:40px;align-items:start}
+
+.contact-form-card{border:1px solid var(--line);border-radius:20px;padding:32px;background:var(--panel);box-shadow:0 15px 50px rgba(0,0,0,0.3)}
+.form-group{margin-bottom:18px}
+.form-group label{display:block;font-size:10px;color:var(--red);letter-spacing:1.5px;font-weight:bold;margin-bottom:6px;text-transform:uppercase}
+.form-control{width:100%;padding:13px 15px;background:var(--bg);border:1px solid var(--line);border-radius:8px;color:var(--text);font-size:13px;outline:none;transition:.3s}
+.form-control:focus{border-color:var(--red);box-shadow:0 0 10px #ff174422}
+textarea.form-control{resize:vertical;min-height:110px}
+.btn-submit{width:100%;padding:15px;background:var(--red);color:#fff;border:none;border-radius:8px;font-weight:bold;font-size:12px;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;box-shadow:0 0 20px #ff174433;transition:.3s}
+.btn-submit:hover{background:var(--red2)}
+
+.declaration-box{margin:50px auto 30px;padding:20px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.6;max-width:1250px}
+footer{padding:25px 4vw;color:var(--muted);font-size:11px;border-top:1px solid var(--line);text-align:center}
+
+@keyframes spin{to{transform:rotate(385deg)}}@keyframes spin2{to{transform:rotate(-385deg)}}
+
+/* RESPONSIVE BREAKPOINTS */
+@media(max-width:960px){
+ nav{padding-bottom:5px}
+ .hero-card{flex-direction:column;text-align:center;padding:45px 25px;min-height:auto}
+ .hero-left{max-width:100%}
+ .actions{justify-content:center}
+ .hero-orb{margin:35px auto 0}
+ .profile-grid,.contact-grid{grid-template-columns:1fr;gap:30px}
+}
+@media(max-width:600px){
+ .topbar{padding:0 3vw}
+ nav{gap:12px;font-size:10px}
+ .hero{padding-top:90px}
+ .flip-card{min-height:460px}
+ .contact-form-card{padding:20px}
+}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="brand">AB<span>.</span></div>
+  <nav>
+    <a href="#home">Home</a>
+    <a href="#about">Profile</a>
+    <a href="#experience">Experience</a>
+    <a href="#skills">Skills</a>
+    <a href="#education">Qualifications</a>
+    <a href="#personal">Personal Info</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <button class="theme" onclick="toggleTheme()" aria-label="Toggle Theme">☾</button>
+</header>
+
+<main>
+<!-- HERO SECTION -->
+<section id="home" class="hero">
+  <div class="ambient a1"></div>
+  <div class="ambient a2"></div>
+
+  <div class="hero-card">
+    <div class="hero-left">
+      <div class="eyebrow">SENIOR IT ENGINEER · 12+ YEARS EXP</div>
+      <h1>Abhijeet<br><span>Bala</span></h1>
+      <p>Infrastructure & Core IT · Networking & Security · Server Administration · Enterprise ERP & Diagnostic Support</p>
+      <div class="actions">
+        <a class="primary" href="#contact">Contact Candidate</a>
+        <a class="secondary" href="Abhijeet_Bala_Resume.pdf" download>Download Resume (PDF)</a>
+      </div>
+    </div>
+
+    <div class="hero-orb">
+      <div class="orb-ring r1"></div>
+      <div class="orb-ring r2"></div>
+      <div class="orb-core">AB</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE SECTION -->
+<section id="about" class="section profile">
+  <div class="section-title">
+    <span>01</span>
+    <h2>Professional Profile</h2>
+  </div>
+  <div class="profile-grid">
+    <div>
+      <p class="lead">A dedicated Senior IT Engineer with 12+ years of experience in optimizing IT operations and maintaining robust network infrastructures.</p>
+      <ul class="summary-list">
+        <li><b>Infrastructure & Core IT:</b> Strong expertise in Windows Server (2012/2016) administration, Linux OS setup, and local/remote data services.</li>
+        <li><b>Networking & Security:</b> Proficient in LAN/WAN setup, router/switch configuration, and Sophos Firewall maintenance.</li>
+        <li><b>Problem Solving:</b> Experienced in resolving complex system issues, ERP client support (Proximo/SAP), and providing prompt remote technical assistance.</li>
+        <li><b>Certified Professional:</b> Formally trained and certified in MCITP, CCNA, and CompTIA A+ from NIIT, New Delhi.</li>
+      </ul>
+    </div>
+    <div class="info-card">
+      <div><small>PHONE</small><b>+91-85 85 96 85 85</b></div>
+      <div><small>EMAIL</small><b><a href="mailto:Abhijeetbala@outlook.com">Abhijeetbala@outlook.com</a></b></div>
+      <div><small>LINKEDIN</small><b><a href="https://www.linkedin.com/in/1002-abhijeetbala" target="_blank">1002-abhijeetbala</a></b></div>
+      <div><small>PORTFOLIO WEBSITE</small><b><a href="https://abhijeet1002.github.io/abhijeetbala/" target="_blank">abhijeetbala github site</a></b></div>
+      <div><small>LOCATION</small><b>Sanjay Nagar, Rudrapur, (U.S.N.), Uttarakhand - 263153</b></div>
+    </div>
+  </div>
+</section>
+
+<!-- EXPERIENCE SECTION -->
+<section id="experience" class="section">
+  <div class="section-title">
+    <span>02</span>
+    <h2>Professional Experience</h2>
+  </div>
+
+  <div class="flip-grid">
+    <!-- Experience Card 1 -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">MARCH 2018 — PRESENT</div>
+            <h3>Senior IT Engineer</h3>
+            <h4>Emdet Engineers Pvt. Ltd. | Dharuhera, Haryana & Rudrapur, Uttarakhand</h4>
+            <p style="color:var(--muted); font-size:12px; margin-top:15px; line-height:1.6;">Managing core IT infrastructure and operations for Emdet Engineers Pvt. Ltd. & Syska Miterr Pvt. Ltd. JV (Switchgears, LED lighting & wires manufacturing).</p>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILED RESPONSIBILITIES</div>
+            <ul>
+              <li>Managed installation, configuration, & maintenance of desktops, laptops, Win Server 2016, Win (7/8.1/10/11), and Linux (Ubuntu LTS, CentOS, Kubuntu).</li>
+              <li>Administered Win Server 2016: Windchill Remote Access, Tally Remote Data Services, shared resources, & automated backup solutions.</li>
+              <li>Deployed & managed OpenMediaVault (OMV NAS) with secure file sharing, access controls, & automated backups.</li>
+              <li>Maintained seamless data communication & system connectivity between Corporate HQ (Gurugram) & Production Unit-1 (Dharuhera).</li>
+              <li>Configured Sophos Firewalls, routers, managed switches, structured cabling, & secure LAN/WAN/Intranet infrastructure.</li>
+              <li>Supported Proximo ERP (PHP 7.0.1), client-side issues, network printer deployments, & LAN/WAN/WLAN connectivity.</li>
+              <li>Administered MS Teams, Zoom, Jitsi Meet, CCTV surveillance systems, & EPABX intercoms.</li>
+              <li>Delivered Tier 2/3 remote & onsite IT support leadership ensuring maximum uptime.</li>
+            </ul>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience Card 2 -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">SEPTEMBER 2016 — FEBRUARY 2018</div>
+            <h3>CCE, DMS Client & Server Support</h3>
+            <h4>Agarwal Motors | Rudrapur, Uttarakhand</h4>
+            <p style="color:var(--muted); font-size:12px; margin-top:15px; line-height:1.6;">Managed Windows Server 2012 R2 infrastructure running Dealer Management System (DMS) & Tally 9.</p>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILED RESPONSIBILITIES</div>
+            <ul>
+              <li>Managed Windows Server 2012 R2 infrastructure running Dealer Management System (DMS), Tally 9, and file-sharing network setups.</li>
+              <li>Formulated and executed strict manual data backup routines on the central server to protect enterprise records.</li>
+              <li>Actively participated in technical procurement workflows & hardware/software evaluation for system upgrades.</li>
+              <li>Conducted corporate user-training programs for MS Office suite & resolved server-client architecture issues.</li>
+            </ul>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience Card 3 -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">MAY 2012 — JANUARY 2016</div>
+            <h3>Network / Desktop Support Engineer</h3>
+            <h4>HCS | New Delhi</h4>
+            <p style="color:var(--muted); font-size:12px; margin-top:15px; line-height:1.6;">Primary contact for disaster mitigation, backup failovers, network documentation, and SLA support.</p>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILED RESPONSIBILITIES</div>
+            <ul>
+              <li>Primary contact for disaster mitigation, providing critical backup systems/networks during hardware/software failovers.</li>
+              <li>Designed, maintained, and logged comprehensive network topology diagrams & infrastructure blueprints.</li>
+              <li>Delivered high-quality remote & on-site L2 technical support, debugging OS defects & peripheral issues.</li>
+              <li>Developed cost-reduction strategies & hardware proposals diminishing operational expenses.</li>
+            </ul>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Experience Card 4 -->
+    <div class="flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">AUGUST 2011 — APRIL 2012</div>
+            <h3>Desktop Support Engineer</h3>
+            <h4>Simple Infosystems Pvt. Ltd. | Noida, Uttar Pradesh</h4>
+            <p style="color:var(--muted); font-size:12px; margin-top:15px; line-height:1.6;">Provided desktop hardware/software support, system updates, and token management.</p>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILED RESPONSIBILITIES</div>
+            <ul>
+              <li>Resolved multi-tier client technical inquiries for desktop hardware and client software.</li>
+              <li>Assisted with computer software deployment, system updates, and logged diagnostic support tokens.</li>
+            </ul>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECHNICAL SKILLS SECTION -->
+<section id="skills" class="section dark-section">
+  <div class="section-title">
+    <span>03</span>
+    <h2>Technical Skills</h2>
+  </div>
+  <div class="skills-grid">
+    <div class="skill-card">
+      <b>01</b>
+      <h3>Systems Administration</h3>
+      <p>Windows Server (2012 R2/2016) & Linux distributions (Ubuntu LTS 16.04–26.04, Kubuntu, CentOS).</p>
+    </div>
+    <div class="skill-card">
+      <b>02</b>
+      <h3>Network & Security Management</h3>
+      <p>Sophos Firewalls, managed switches, routers, secure LAN/WAN/WLAN topologies.</p>
+    </div>
+    <div class="skill-card">
+      <b>03</b>
+      <h3>Storage & Virtualization</h3>
+      <p>OpenMediaVault (OMV) NAS deployment, VMware virtualization, WD Sharing Point sync.</p>
+    </div>
+    <div class="skill-card">
+      <b>04</b>
+      <h3>Infrastructure & Intranet</h3>
+      <p>Enterprise Intranet frameworks, structured cabling, multi-point automated backup & disaster recovery.</p>
+    </div>
+    <div class="skill-card">
+      <b>05</b>
+      <h3>ERP & Database Support</h3>
+      <p>Client configuration and troubleshooting for SAP HANA and Proximo ERP (PHP 7.01).</p>
+    </div>
+    <div class="skill-card">
+      <b>06</b>
+      <h3>IT Support & Surveillance</h3>
+      <p>Cross-platform diagnostic skills (Windows 7–11), commercial CCTV, EPABX/intercom setups.</p>
+    </div>
+    <div class="skill-card">
+      <b>07</b>
+      <h3>Technical / Web Skills</h3>
+      <p>Basic front-end web development (HTML, CSS, JavaScript).</p>
+    </div>
+    <div class="skill-card">
+      <b>08</b>
+      <h3>Design & Office Tools</h3>
+      <p>Photoshop, CorelDraw, GIMP, Tally 7.2/9, MS Office suite, Corporate user training.</p>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION & QUALIFICATIONS -->
+<section id="education" class="section">
+  <div class="section-title">
+    <span>04</span>
+    <h2>Education & Qualifications</h2>
+  </div>
+  
+  <div class="flip-grid" style="margin-bottom: 50px;">
+    <div class="flip-card" style="min-height:220px;" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">GRADUATION · 2009</div>
+            <h3>B.COM</h3>
+            <h4>Kumaun University, Nainital</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILS</div>
+            <p style="font-size:12px; color:var(--muted);">Bachelor of Commerce degree focused on business management and corporate accounting.</p>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" style="min-height:220px;" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">HIGHER SECONDARY · 2006</div>
+            <h3>Class XII</h3>
+            <h4>Inter College, Rudrapur (U.S. Nagar)</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILS</div>
+            <p style="font-size:12px; color:var(--muted);">Passed under U.A. Board (Uttarakhand).</p>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" style="min-height:220px;" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">HIGH SCHOOL · 2004</div>
+            <h3>Class X</h3>
+            <h4>Inter College, Rudrapur (U.S. Nagar)</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILS</div>
+            <p style="font-size:12px; color:var(--muted);">Passed under U.A. Board (Uttarakhand).</p>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <h3 style="font-size: 26px; margin-bottom: 25px;">Technical Certifications & Training</h3>
+
+  <div class="tech-grid">
+    <div class="flip-card tech-flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">GLOBAL NET+</div>
+            <h3>System & Networking Diploma</h3>
+            <h4>NIIT, Connaught Place, New Delhi</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DURATION & SCOPE</div>
+            <p style="font-size:12px; color:var(--muted);">Nov 2009 – Feb 2012. Higher Diploma in System and Networking.</p>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card tech-flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">MICROSOFT CERTIFIED</div>
+            <h3>MCITP Certification</h3>
+            <h4>NIIT, New Delhi</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">MODULES COVERED</div>
+            <ul>
+              <li>Win 7 Configuration (Client deployment & security)</li>
+              <li>Win Server 2008 Active Directory Configuration</li>
+              <li>Win Server 2008 Network Infrastructure (DNS, DHCP, Routing)</li>
+              <li>Server Administrator on Win Server 2008 R2</li>
+            </ul>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card tech-flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">CISCO CERTIFIED</div>
+            <h3>CCNA Certification</h3>
+            <h4>NIIT, New Delhi</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">MODULES COVERED</div>
+            <ul>
+              <li>Routing and Switching</li>
+              <li>Mapping network topologies & VLANs</li>
+              <li>Secure LAN/WAN protocols</li>
+            </ul>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card tech-flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">COMPTIA CERTIFIED</div>
+            <h3>CompTIA A+ (Systems)</h3>
+            <h4>NIIT, New Delhi</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">MODULES COVERED</div>
+            <ul>
+              <li>CompTIA A+ Essentials</li>
+              <li>CompTIA A+ Practical Application</li>
+            </ul>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card tech-flip-card" onclick="this.classList.toggle('flipped')">
+      <div class="flip-card-inner">
+        <div class="flip-card-front">
+          <div>
+            <div class="date">FINANCIAL SOFTWARE</div>
+            <h3>Tally 7.2 & Foundation Computer</h3>
+            <h4>Bilingual Institute, Haldwani</h4>
+          </div>
+          <span class="flip-badge">Flip Details ↻</span>
+        </div>
+        <div class="flip-card-back">
+          <div>
+            <div class="date">DETAILS</div>
+            <p style="font-size:12px; color:var(--muted);">The School of Foreign Languages & Computer Education, Haldwani, Uttarakhand.</p>
+          </div>
+          <span class="flip-badge">Flip Back ↻</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PERSONAL INFORMATION -->
+<section id="personal" class="section dark-section">
+  <div class="section-title">
+    <span>05</span>
+    <h2>Additional Information</h2>
+  </div>
+
+  <div class="info-card" style="max-width: 800px; margin: 0 auto;">
+    <div><small>LANGUAGES KNOWN</small><b>English, Hindi, and Bangla</b></div>
+    <div><small>PERMANENT ADDRESS</small><b>House No. 724, Sanjay Nagar, Ward No. 11, Rudrapur, Udham Singh Nagar, Uttarakhand - 263153, India</b></div>
+  </div>
+</section>
+
+<!-- CONTACT SECTION -->
+<section id="contact" class="contact-section">
+  <div class="section-title">
+    <span>06</span>
+    <h2>Get In Touch</h2>
+  </div>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <span class="eyebrow">RECRUITMENT INQUIRIES</span>
+      <h2>Let's Discuss<br><span>Your Next Enterprise Role.</span></h2>
+      <p>Looking for a Senior IT Engineer with 12+ years of hands-on expertise in network architecture, server maintenance, and firewall security? Connect today.</p>
+      
+      <div class="info-card">
+        <div><small>EMAIL</small><b><a href="mailto:Abhijeetbala@outlook.com">Abhijeetbala@outlook.com</a></b></div>
+        <div><small>PHONE</small><b>+91-85 85 96 85 85</b></div>
+        <div><small>LOCATION</small><b>Rudrapur, Uttarakhand, India</b></div>
+      </div>
+    </div>
+
+    <div class="contact-form-card">
+      <form action="https://api.web3forms.com/submit" method="POST">
+        <input type="hidden" name="access_key" value="1e3adb26-65b7-4c1d-a5f9-43e08674b49a">
+
+        <div class="form-group">
+          <label for="name">Your Name / Organization</label>
+          <input type="text" id="name" name="name" class="form-control" placeholder="Company Name or Recruiter Name" required>
+        </div>
+
+        <div class="form-group">
+          <label for="email">Your Email</label>
+          <input type="email" id="email" name="email" class="form-control" placeholder="recruiter@company.com" required>
+        </div>
+
+        <div class="form-group">
+          <label for="subject">Role / Subject</label>
+          <input type="text" id="subject" name="subject" class="form-control" placeholder="Job Opportunity / Interview Invitation" required>
+        </div>
+
+        <div class="form-group">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" class="form-control" placeholder="Enter job description or discussion points..." required></textarea>
+        </div>
+
+        <button type="submit" class="btn-submit">Send Message →</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- DECLARATION BOX AT THE BOTTOM -->
+<div class="declaration-box">
+  <p><b>DECLARATION:</b> All the above information is correct and under my knowledge. I would be responsible for any type of mistake.</p>
+  <p style="margin-top: 15px;"><b>Place:</b> Rudrapur <br> <b>Signature:</b> Abhijeet Bala</p>
+</div>
+
+</main>
+
+<footer>© 2026 Abhijeet Bala · Senior IT Engineer</footer>
+
+<script>
+function toggleTheme(){
+  document.body.classList.toggle('light');
+  document.querySelector('.theme').textContent =
+    document.body.classList.contains('light') ? '☀' : '☾';
+}
+</script>
+</body>
+</html>
