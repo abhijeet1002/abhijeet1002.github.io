@@ -104,19 +104,18 @@ textarea.form-control{resize:vertical;min-height:110px}
 .declaration-box{margin:50px auto 30px;padding:20px;border:1px dashed var(--line);border-radius:10px;font-size:12px;color:var(--muted);line-height:1.6;max-width:1250px}
 footer{padding:25px 4vw;color:var(--muted);font-size:11px;border-top:1px solid var(--line);text-align:center}
 
-/* FLOATING YOUTUBE VIDEO WIDGET (LEFT SIDE) */
+/* FLOATING YOUTUBE VIDEO WIDGET (LEFT SIDE, DRAGGABLE) */
 .floating-yt{position:fixed;bottom:18px;left:18px;z-index:9999;width:260px;background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 12px 35px rgba(0,0,0,0.65);overflow:hidden;transition:width .3s ease}
 .floating-yt.large{width:460px;max-width:calc(100vw - 36px)}
 .floating-yt.minimized .yt-body{display:none}
-.yt-header{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--panel2);border-bottom:1px solid var(--line);font-size:10px;font-weight:bold;letter-spacing:1px;color:var(--muted)}
+.yt-header{display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:var(--panel2);border-bottom:1px solid var(--line);font-size:10px;font-weight:bold;letter-spacing:1px;color:var(--muted);cursor:move;user-select:none;touch-action:none}
 .yt-header span{color:var(--red)}
 .yt-controls{display:flex;gap:5px}
 .yt-btn{background:transparent;border:1px solid var(--line);color:var(--text);width:22px;height:22px;border-radius:5px;font-size:11px;line-height:1;cursor:pointer;display:grid;place-items:center;transition:.2s}
 .yt-btn:hover{border-color:var(--red);color:var(--red)}
 .yt-body{position:relative;width:100%;aspect-ratio:16/9;background:#000}
 .yt-body iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
-.yt-fallback{position:absolute;bottom:6px;right:8px;z-index:2;background:rgba(0,0,0,0.75);color:#fff;font-size:9px;padding:3px 7px;border-radius:4px;border:1px solid rgba(255,255,255,0.2)}
-.yt-fallback:hover{border-color:var(--red);color:var(--red)}
+.floating-yt.dragging .yt-body iframe{pointer-events:none}
 
 @keyframes spin{to{transform:rotate(385deg)}}@keyframes spin2{to{transform:rotate(-385deg)}}
 
@@ -635,17 +634,16 @@ footer{padding:25px 4vw;color:var(--muted);font-size:11px;border-top:1px solid v
 
 <!-- FLOATING YOUTUBE VIDEO WIDGET -->
 <div class="floating-yt" id="floatingYt">
-  <div class="yt-header">
+  <div class="yt-header" id="ytDragHandle" title="Drag to Move">
     <div><span>●</span> VIDEO</div>
     <div class="yt-controls">
       <button type="button" class="yt-btn" onclick="toggleYtMin()" title="Minimize / Restore">−</button>
-      <button type="button" class="yt-btn" id="ytSizeBtn" onclick="toggleYtSize()" title="Bada / Chota Karein">⤢</button>
+      <button type="button" class="yt-btn" id="ytSizeBtn" onclick="toggleYtSize()" title="Maximize">⤢</button>
       <button type="button" class="yt-btn" onclick="closeYt()" title="Close">✕</button>
     </div>
   </div>
   <div class="yt-body">
     <iframe width="560" height="315" src="https://www.youtube.com/embed/BMRK6c8HZes?si=iUn1M2BqKTpkwcLw&autoplay=1&mute=1" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
-    <a class="yt-fallback" href="https://youtu.be/BMRK6c8HZes?si=iUn1M2BqKTpkwcLw" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
   </div>
 </div>
 
@@ -665,15 +663,57 @@ function toggleYtMin(){
 
 function toggleYtSize(){
   const box = document.getElementById('floatingYt');
+  const btn = document.getElementById('ytSizeBtn');
   box.classList.remove('minimized');
   box.classList.toggle('large');
-  document.getElementById('ytSizeBtn').textContent = box.classList.contains('large') ? '⤡' : '⤢';
+  const isLarge = box.classList.contains('large');
+  btn.textContent = isLarge ? '⤡' : '⤢';
+  btn.title = isLarge ? 'Shrink' : 'Maximize';
 }
 
 function closeYt(){
   const box = document.getElementById('floatingYt');
   box.remove();
 }
+
+(function(){
+  const box = document.getElementById('floatingYt');
+  const handle = document.getElementById('ytDragHandle');
+  let isDragging = false, startX = 0, startY = 0, initialLeft = 0, initialTop = 0;
+
+  handle.addEventListener('pointerdown', function(e){
+    if(e.target.closest('.yt-controls')) return;
+    isDragging = true;
+    box.classList.add('dragging');
+    const rect = box.getBoundingClientRect();
+    box.style.left = rect.left + 'px';
+    box.style.top = rect.top + 'px';
+    box.style.bottom = 'auto';
+    box.style.right = 'auto';
+    startX = e.clientX;
+    startY = e.clientY;
+    initialLeft = rect.left;
+    initialTop = rect.top;
+    handle.setPointerCapture(e.pointerId);
+  });
+
+  handle.addEventListener('pointermove', function(e){
+    if(!isDragging) return;
+    const maxLeft = window.innerWidth - box.offsetWidth;
+    const maxTop = window.innerHeight - box.offsetHeight;
+    const nextLeft = Math.min(Math.max(0, initialLeft + (e.clientX - startX)), Math.max(0, maxLeft));
+    const nextTop = Math.min(Math.max(0, initialTop + (e.clientY - startY)), Math.max(0, maxTop));
+    box.style.left = nextLeft + 'px';
+    box.style.top = nextTop + 'px';
+  });
+
+  handle.addEventListener('pointerup', function(e){
+    if(!isDragging) return;
+    isDragging = false;
+    box.classList.remove('dragging');
+    handle.releasePointerCapture(e.pointerId);
+  });
+})();
 </script>
 </body>
 </html>
